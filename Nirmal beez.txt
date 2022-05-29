@@ -35,55 +35,6 @@ LEFT JOIN Export Ex ON Ex.Vegetable = veg.Vegetable
 LEFT JOIN Import Im ON Im.Vegetable = veg.Vegetable
 
 
-********************************************************************************************
-
-CREATE TABLE Student 
-(
-StudentId INT,
-StudentName VARCHAR(100),
-ClassId INT,
-StaffId INT
-)
-
-CREATE TABLE Staff 
-(
-StaffId INT,
-StaffName VARCHAR(100)
-
-)
-
-CREATE TABLE Class 
-(
-ClassId INT,
-ClassName VARCHAR(100)
-)
-
-INSERT INTO Class VALUES (1,'Tamil')
-INSERT INTO Class VALUES (2,'English')
-INSERT INTO Class VALUES (3,'Computer')
-
-
-
-Select * From Class
-
---Truncate table Class
-
-
-INSERT INTO Staff VALUES (1,'Raja')
-INSERT INTO Staff VALUES (2,'Mani')
-INSERT INTO Staff VALUES (3,'Kavin')
-
-Select * From Staff
-
-
-INSERT INTO Student VALUES (1,'Ram',1,2)
-INSERT INTO Student VALUES (2,'Dass',1,2)
-INSERT INTO Student VALUES (3,'Kali',2,1)
-INSERT INTO Student VALUES (4,'Sakthi',3,1)
-INSERT INTO Student VALUES (5,'Steve',2,3)
-
-Select * From Student
-
 
 SELECT ISNULL(Veg.Vegetable,'') as Vegetable,
 (Veg.ExportRate + (veg.Exportrate * Ex.TaxPercentage/100)) as ExportAmount,
@@ -91,15 +42,3 @@ SELECT ISNULL(Veg.Vegetable,'') as Vegetable,
 FROM Vegetables veg(NOLOCK) 
 LEFT JOIN Export Ex ON Ex.Vegetable = veg.Vegetable
 LEFT JOIN Import Im ON Im.Vegetable = veg.Vegetable
-
-Select ISNULL(Stu.StudentName,'') AS StudentName,
-ISNULL(Cla.ClassName,'') AS ClassName,
-ISNULL(Sta.StaffName,'') AS StaffName
-FROM Student Stu (NOLOCK)
-LEFT JOIN Class Cla (NOLOCK) ON Stu.Classid=Cla.Classid
-LEFT JOIN Staff Sta (NOLOCK) ON Stu.Staffid=Sta.StaffId
-For JSON Path,Root('Student')
-
-SELECT * FROM Class
-SELECt * FROM Staff
-Select *  FROm Student

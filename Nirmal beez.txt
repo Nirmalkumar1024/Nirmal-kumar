@@ -1,0 +1,105 @@
+CREATE TABLE Vegetables (ID int identity(1,1),Vegetable VARCHAR(40),ImportRate INT,ExportRate INT)
+
+INSERT INTO Vegetables VALUES('Potato',20,60)
+INSERT INTO Vegetables VALUES('Brijal',15,45)
+INSERT INTO Vegetables VALUES('Bitter Gourd',18,55)
+INSERT INTO Vegetables VALUES('Ladies Finger',21,60)
+INSERT INTO Vegetables VALUES('Onion',95,275)
+
+Select * from Vegetables
+Select * from Export
+Select * from Import
+CREATE TABLE Export (Vegetable VARCHAR(40),TaxPercentage int)
+
+
+INSERT INTO Export VALUES('Potato',10 )
+INSERT INTO Export VALUES('Brijal',10)
+INSERT INTO Export VALUES('Bitter Gourd',10)
+INSERT INTO Export VALUES('Ladies Finger',10)
+INSERT INTO Export VALUES('Onion',10)
+
+CREATE TABLE Import (Vegetable VARCHAR(40),DiscountAmount int)
+
+INSERT INTO Import VALUES('Potato',5 )
+INSERT INTO Import VALUES('Brijal',7 )
+INSERT INTO Import VALUES('Bitter Gourd',9 )
+INSERT INTO Import VALUES('Ladies Finger',11 )
+INSERT INTO Import VALUES('Onion',20 )
+
+
+SELECT ISNULL(Veg.Vegetable,'') as Vegetable,
+(Veg.ExportRate + (veg.Exportrate * Ex.TaxPercentage/100)) as ExportAmount,
+(Veg.ImportRate-Im.DiscountAmount) as ImportAmount
+FROM Vegetables veg(NOLOCK) 
+LEFT JOIN Export Ex ON Ex.Vegetable = veg.Vegetable
+LEFT JOIN Import Im ON Im.Vegetable = veg.Vegetable
+
+
+********************************************************************************************
+
+CREATE TABLE Student 
+(
+StudentId INT,
+StudentName VARCHAR(100),
+ClassId INT,
+StaffId INT
+)
+
+CREATE TABLE Staff 
+(
+StaffId INT,
+StaffName VARCHAR(100)
+
+)
+
+CREATE TABLE Class 
+(
+ClassId INT,
+ClassName VARCHAR(100)
+)
+
+INSERT INTO Class VALUES (1,'Tamil')
+INSERT INTO Class VALUES (2,'English')
+INSERT INTO Class VALUES (3,'Computer')
+
+
+
+Select * From Class
+
+--Truncate table Class
+
+
+INSERT INTO Staff VALUES (1,'Raja')
+INSERT INTO Staff VALUES (2,'Mani')
+INSERT INTO Staff VALUES (3,'Kavin')
+
+Select * From Staff
+
+
+INSERT INTO Student VALUES (1,'Ram',1,2)
+INSERT INTO Student VALUES (2,'Dass',1,2)
+INSERT INTO Student VALUES (3,'Kali',2,1)
+INSERT INTO Student VALUES (4,'Sakthi',3,1)
+INSERT INTO Student VALUES (5,'Steve',2,3)
+
+Select * From Student
+
+
+SELECT ISNULL(Veg.Vegetable,'') as Vegetable,
+(Veg.ExportRate + (veg.Exportrate * Ex.TaxPercentage/100)) as ExportAmount,
+(Veg.ImportRate-Im.DiscountAmount) as ImportAmount
+FROM Vegetables veg(NOLOCK) 
+LEFT JOIN Export Ex ON Ex.Vegetable = veg.Vegetable
+LEFT JOIN Import Im ON Im.Vegetable = veg.Vegetable
+
+Select ISNULL(Stu.StudentName,'') AS StudentName,
+ISNULL(Cla.ClassName,'') AS ClassName,
+ISNULL(Sta.StaffName,'') AS StaffName
+FROM Student Stu (NOLOCK)
+LEFT JOIN Class Cla (NOLOCK) ON Stu.Classid=Cla.Classid
+LEFT JOIN Staff Sta (NOLOCK) ON Stu.Staffid=Sta.StaffId
+For JSON Path,Root('Student')
+
+SELECT * FROM Class
+SELECt * FROM Staff
+Select *  FROm Student
